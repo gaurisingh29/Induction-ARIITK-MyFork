@@ -89,78 +89,87 @@ The system is designed with a strong focus on class relationships:
 ### Main Classes and Attributes
 Main Classes and Attributes
 
-1. Bank Class
+
+
+### 1. Bank Class
 Represents the complete banking organization.
-| Attribute | Type           | Description          |
-| --------- | -------------- | -------------------- |
-| bankId    | int            | Unique bank ID       |
-| bankName  | String         | Name of bank         |
-| branches  | List<Branch>   | All branches         |
+
+| Attribute | Type | Description |
+|---|---|---|
+| bankId | int | Unique bank ID |
+| bankName | String | Name of bank |
+| branches | List<Branch> | All branches |
 | customers | List<Customer> | Registered customers |
-| employees | List<Employee> | Bank staff           |
+| employees | List<Employee> | Bank staff |
 
+---
 
-2. Branch Class
+### 2. Branch Class
 Represents a bank branch.
-| Attribute  | Type           | Description      |
-| ---------- | -------------- | ---------------- |
-| branchId   | int            | Unique branch ID |
-| branchName | String         | Branch name      |
-| IFSCCode   | String         | Branch IFSC      |
-| address    | String         | Branch address   |
-| accounts   | List<Account>  | Accounts handled |
-| employees  | List<Employee> | Staff members    |
 
-3.Customer Class
+| Attribute | Type | Description |
+|---|---|---|
+| branchId | int | Unique branch ID |
+| branchName | String | Branch name |
+| IFSCCode | String | Branch IFSC |
+| address | String | Branch address |
+| accounts | List<Account> | Accounts handled |
+| employees | List<Employee> | Staff members |
+
+---
+
+### 3. Customer Class
 Stores customer information.
-| Attribute     | Type          | Description         |
-| ------------- | ------------- | ------------------- |
-| customerId    | int           | Unique customer ID  |
-| fullName      | String        | Customer name       |
-| dob           | Date          | Date of birth       |
-| gender        | String        | Gender              |
-| mobileNumber  | String        | Contact number      |
-| email         | String        | Email               |
-| address       | String        | Residential address |
-| aadhaarNumber | String        | National ID         |
-| PANNumber     | String        | Tax ID              |
-| accounts      | List<Account> | Customer accounts   |
-| loans         | List<Loan>    | Customer loans      |
 
+| Attribute | Type | Description |
+|---|---|---|
+| customerId | int | Unique customer ID |
+| fullName | String | Customer name |
+| dob | Date | Date of birth |
+| gender | String | Gender |
+| mobileNumber | String | Contact number |
+| email | String | Email |
+| address | String | Residential address |
+| aadhaarNumber | String | National ID |
+| PANNumber | String | Tax ID |
+| accounts | List<Account> | Customer accounts |
+| loans | List<Loan> | Customer loans |
 
-4. Abstract Account Class
+---
+
+### 4. Abstract Account Class
 Base class for all account types.
-| Attribute     | Type              | Description           |
-| ------------- | ----------------- | --------------------- |
-| accountNumber | long              | Unique account number |
-| accountType   | String            | Savings/current       |
-| balance       | double            | Current balance       |
-| dateOpened    | Date              | Opening date          |
-| status        | String            | Active/blocked        |
-| branch        | Branch            | Linked branch         |
-| customer      | Customer          | Owner                 |
-| transactions  | List<Transaction> | Transaction history   |
 
+| Attribute | Type | Description |
+|---|---|---|
+| accountNumber | long | Unique account number |
+| accountType | String | Savings/current |
+| balance | double | Current balance |
+| dateOpened | Date | Opening date |
+| status | String | Active/blocked |
+| branch | Branch | Linked branch |
+| customer | Customer | Owner |
+| transactions | List<Transaction> | Transaction history |
 
 5. SavingsAccount Class
 Inherits from Account.
-| Attribute      | Type   | Description              |
-| -------------- | ------ | ------------------------ |
+| Attribute|Type| Description|
+|---|---|---|
 | interestRate   | double | Interest percentage      |
 | minimumBalance | double | Minimum balance required |
 
 
 6. CurrentAccount Class
 Inherits from Account.
-| Attribute      | Type   | Description          |
-| -------------- | ------ | -------------------- |
+|Attribute|Type|Description|
+|---|---|---|
 | overdraftLimit | double | Allowed overdraft    |
 | businessName   | String | Business holder name |
 
 7.FixedDepositAccount Class
 Inherits from Account.
-| Attribute      | Type   | Description      |
-| -------------- | ------ | ---------------- |
+| Attribute|Type|Description|
+|---|---|---|
 | FDAmount       | double | Deposit amount   |
 | maturityDate   | Date   | Maturity date    |
 | FDInterestRate | double | FD interest      |
@@ -168,7 +177,7 @@ Inherits from Account.
 
 8.Transaction Class
 Represents all banking transactions.
-| Attribute       | Type    | Description           |
+|Attribute|Type|Description|
 | --------------- | ------- | --------------------- |
 | transactionId   | int     | Unique transaction ID |
 | transactionType | String  | Deposit/withdraw      |
@@ -180,8 +189,8 @@ Represents all banking transactions.
 
 9.Loan Class
 Represents customer loans.
-| Attribute    | Type     | Description       |
-| ------------ | -------- | ----------------- |
+|Attribute|Type|Description|
+|---|---|---|
 | loanId       | int      | Unique loan ID    |
 | loanType     | String   | Home/car/personal |
 | loanAmount   | double   | Principal amount  |
@@ -193,8 +202,8 @@ Represents customer loans.
 
 10.ATM Card Class
 Represents ATM/debit cards.
-| Attribute     | Type    | Description        |
-| ------------- | ------- | ------------------ |
+|Attribute|Type|Description|
+|---|---|---|
 | cardNumber    | long    | ATM card number    |
 | CVV           | int     | Security code      |
 | expiryDate    | Date    | Card expiry        |
@@ -205,8 +214,8 @@ Represents ATM/debit cards.
 
 11.Employee Class
 Represents bank employees.
-| Attribute    | Type   | Description     |
-| ------------ | ------ | --------------- |
+|Attribute|Type|Description|
+|---|---|---|
 | employeeId   | int    | Employee ID     |
 | employeeName | String | Employee name   |
 | designation  | String | Manager/cashier |
@@ -222,16 +231,16 @@ Used for polymorphism.
 
 13.  SMSNotification Class
 Implements Notification interface.
-| Attribute      | Type   | Description      |
-| -------------- | ------ | ---------------- |
+| Attribute|Type| Description|
+|---|---|---|
 | phoneNumber    | String | Recipient number |
 | message        | String | SMS content      |
 | deliveryStatus | String | Sent/pending     |
 
 14. EmailNotification Class
 Implements Notification interface.
-| Attribute      | Type   | Description     |
-| -------------- | ------ | --------------- |
+|Attribute|Type|Description|
+|---|---|---|
 | emailAddress   | String | Recipient email |
 | subject        | String | Email subject   |
 | message        | String | Email body      |
