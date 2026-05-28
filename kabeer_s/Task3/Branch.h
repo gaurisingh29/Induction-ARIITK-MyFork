@@ -3,11 +3,13 @@
 
 #include <string>
 #include <list>
+#include "Bank.h"
 
 class Employee;
 class Account;
 
 class Branch{
+    friend Bank;
     private:
     int branchId;
     std::string branchName;
@@ -16,25 +18,26 @@ class Branch{
     std::list<Account *> accounts;
     std::list<Employee *> employees;
 
-    static int total_branch_count;
+    static int idGenerator;
+
+    Branch(std::string name, std::string code, std::string address);
+    ~Branch();
 
     public:
-    Branch(std::string name, std::string code, std::string address);  // generate unqiue id from statis variable;
-
     int getId();
     std::string getName();
     std::string getIFSCCode();
     std::string getAddress();
 
-    int addEmployee(); // returns unique id assigned
+    void addEmployee(Employee* emp);
     int removeEmployee(int id); // returns success code
     
-    int addAccount();
-    int removeAccount(int id);
-    int setAccountStatus();
-    int setAccountBalance();
-    int addCard();
-    int removeCard();
+    int addAccount(std::string Type, double Balance, Date DateOpened, std::string Status, Branch *Branche, Customer * Cus);
+    int removeAccount(long AccNum);
+    int setAccountStatus(long AccNum, std::string status);
+    int setAccountBalance(long AccNum, int bal);
+    int addCard(Date ExpiryDate, std::string type, std::string status, Account* acc);
+    int removeCard(long CardNum);
 };
 
 #endif

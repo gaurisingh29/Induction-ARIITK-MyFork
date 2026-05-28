@@ -8,7 +8,9 @@ class Notification{
     std::string message;
     Notification(std::string msg);
     public:
-    ~Notification();
+    virtual ~Notification(){
+        ;
+    };
     virtual void send() = 0;
 };
 

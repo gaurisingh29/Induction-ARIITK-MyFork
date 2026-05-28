@@ -3,11 +3,12 @@
 
 #include "Date.h"
 #include <string>
-#include "Branch.h"
 
 class Account;
+class Branch;
 
 class ATMCard{
+    friend class Branch;
     private:
     long cardNumber;
     int CVV;
@@ -17,23 +18,20 @@ class ATMCard{
     std::string cardStatus;
     Account *linkedAccount;
 
-    static int numberOfCards;
+    static int numberGenerator;
 
     // managed by branch which owns the account
-    ATMCard();
-    ~ATMCard();
-
-    friend int Branch::addCard();
-    friend int Branch::removeCard();
+    ATMCard(Date ExpiryDate, std::string type, std::string status, Account* acc);
+    ~ATMCard(){;}
 
     public:
-    long getCardNumber() const;
-    std::string getCardType() const;
-    std::string getCardStatus() const;
-    Date getExpiryDate() const;
-    Account* getLinkedAccount() const;
+    long getCardNumber();
+    std::string getCardType();
+    std::string getCardStatus();
+    Date getExpiryDate();
+    Account* getLinkedAccount();
     
-    bool verifyPIN(int inputPIN) const;
+    bool verifyPIN(int inputPIN);
     void blockCard();
 };
 

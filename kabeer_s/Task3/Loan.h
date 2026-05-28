@@ -3,11 +3,13 @@
 
 #include <string>
 #include "Date.h"
-#include "Bank.h"
 
 class Customer;
+class Bank;
 
 class Loan{
+    friend class Bank;
+
     private:
     int loanId;
     std::string loanType;
@@ -18,17 +20,21 @@ class Loan{
     Customer *customer;
     std::string loanStatus;
     
-    static int numberOfLoans;
+    static int idGenerator;
 
-    Loan();
-    ~Loan();
-
-    friend int Bank::addLoan();
-    friend int Bank::removeLoan();
-    friend void Bank::editLoanStatus();
+    Loan(std::string loanType,
+    double loanAmount,
+    double interestRate,
+    int tenureYears,
+    double EMIAmount,
+    Customer *customer,
+    std::string loanStatus);
+    ~Loan(){
+        ;
+    }
 
     public:
-
+    int getId();
     std::string getLoanType();
     double getLoanAmount();
     double getInterestRate();

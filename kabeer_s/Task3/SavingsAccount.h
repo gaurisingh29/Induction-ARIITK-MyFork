@@ -4,16 +4,20 @@
 #include "Account.h"
 #include "Branch.h"
 
+class Branch;
+
 class SavingsAccount: public Account{
+    friend class Branch;
     private:
     double interest;
     double minimumBalance;
-    SavingsAccount(int id, double bal, double rate) : Account(), minimumBalance(bal), interest(rate){
-        // idk but you can do something here
-    };
+    SavingsAccount(std::string Type, double Balance, Date DateOpened, std::string Status, Branch *Branche, Customer * Cus, double bal, double rate) : Account(Type, Balance, DateOpened, Status, Branche, Cus), minimumBalance(bal), interest(rate){
+        ;
+    }
 
-    friend int Branch::addAccount();
-    friend int Branch::removeAccount(int);
+    ~SavingsAccount(){
+        ;
+    }
 };
 
 #endif

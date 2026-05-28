@@ -3,21 +3,25 @@
 
 #include "Account.h"
 #include "Date.h"
-#include "Branch.h"
+
+class Branch;
 
 class FixedDepositAccount: public Account{
+    friend class Branch;
     private:
     double FDAmount;
     Date maturityDate;
     double FDInterestRate;
     int tenureMonths;
 
-    FixedDepositAccount(int id, double limit, Date name) : Account(), FDAmount(limit), maturityDate(name){
-        // idk but you can do something here
+    FixedDepositAccount(std::string Type, double Balance, Date DateOpened, std::string Status, Branch *Branche, Customer * Cus, double fdamount, Date maturity, double interest, int tenure) : 
+    Account(Type, Balance, DateOpened, Status, Branche, Cus), FDAmount(fdamount), maturityDate(maturity), FDInterestRate(interest), tenureMonths(tenure){
+        ;
     };
 
-    friend int Branch::addAccount();
-    friend int Branch::removeAccount(int);
+    ~FixedDepositAccount(){
+        ;
+    }
 };
 
 #endif

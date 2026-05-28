@@ -11,6 +11,9 @@ class Account;
 class Loan;
 
 class Customer{
+    friend class Branch;
+    friend class Bank;
+
     private:
     int customerId;
     std::string fullName;
@@ -24,14 +27,11 @@ class Customer{
     std::list<Account *> accounts;
     std::list<Loan *> loans;
 
-    static int totalCustomerCount;
+    static int idGenerator;
 
     // operated by branch only
-    void addAccount();
-    int removeAccount(int id);
-
-    friend int Branch::addAccount();
-    friend int Branch::removeAccount(int);
+    void addAccount(Account *);
+    int removeAccount(long accountNumber);
 
     // operated by bank only
     Customer(
@@ -44,14 +44,9 @@ class Customer{
         std::string aadhaarNumber, 
         std::string PANNumber
     );
-    ~Customer();
-    int addLoan();
+    ~Customer(){;}
+    int addLoan(Loan *);
     int removeLoan(int id);
-
-    friend int Bank::addCustomer();
-    friend int Bank::removeCustomer(int id);
-    friend int Bank::addLoan();
-    friend int Bank::removeLoan();
 
     public:
     std::string getName();

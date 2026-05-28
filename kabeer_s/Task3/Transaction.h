@@ -3,11 +3,12 @@
 
 #include <string>
 #include "Date.h"
-#include "Bank.h"
 
 class Account;
+class Bank;
 
 class Transaction{
+    friend class Bank;
     private:
     int transactionId;
     std::string transactionType;
@@ -17,14 +18,12 @@ class Transaction{
     Account *receiverAccount;
     std::string status;
     
-    static int numberOfTransactions;
+    static int idGenerator;
 
-    Transaction();
-    ~Transaction();
-    void editStatus();
+    Transaction(std::string transactionType, double amount, Date transactionDate, Account *senderAccount, Account *receiverAccount, std::string status);
+    ~Transaction(){;}
+    void editStatus(std::string);
 
-    friend int Bank::addTransaction();
-    friend void Bank::editTransactionStatus();
 
     public:
     std::string getTransactionType();

@@ -2,31 +2,31 @@
 #define EMPLOYEE_H
 
 #include <string>
-#include "Branch.h"
+#include "Bank.h"
 
 class Employee{
     private:
-    int employeeId;
-    std::string fullName;
+    int id;
+    std::string name;
     std::string designation;
     double salary;
 
-    static int totalEmployeeCount;
+    static int idGenerator;
 
-    // operated by branch only
+    // operated by bank only
     Employee(
-        int employeeId,
         std::string fullName,
         std::string designation,
         double salary
     );
-    ~Employee();
+    ~Employee(){;}
 
-    friend int Branch::addEmployee();
-    friend int Branch::removeEmployee(int id);
+    friend int Bank::addEmployee(std::string fullName, std::string designation, double salary);
+    friend int Bank::removeEmployee(int id);
+    friend Bank::~Bank();
 
     public:
-    int getEmployeeId();
+    int getId();
     std::string getName();
     std::string getDesignation();
     double getSalary();
