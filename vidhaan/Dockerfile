@@ -4,8 +4,8 @@ RUN apt-get update && apt-get install -y g++
 
 WORKDIR /app
 
-COPY . .
+COPY Banking.cpp .
 
-RUN g++ *.cpp -o bank
+RUN g++ -o smartbank Banking.cpp
 
-CMD ["./bank"]
+CMD ["./smartbank"]
