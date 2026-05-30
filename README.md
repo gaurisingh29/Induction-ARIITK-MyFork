@@ -417,7 +417,6 @@ Write a `Dockerfile` and a `run.sh` script to containerize your workspace.
 - Uses a **multi-stage build**: stage 1 (`builder`) installs deps and builds; stage 2 (`runtime`) copies only the install directory. The final image must be under 3 GB.
 
 **`run.sh` script requirements:**
-- Instead of using Docker Compose, write a simple bash script named `run.sh` that uses a standard `docker run` command.
 - Mount the source code directory as a volume so changes reflect without rebuilding.
 - Include necessary flags (like `-it`, `--rm`, `--net=host`, or `-e ROS_DOMAIN_ID=42` if required).
 - The container should automatically run the fleet launch file.
