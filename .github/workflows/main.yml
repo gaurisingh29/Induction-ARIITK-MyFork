@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   run-autograding-tests:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     if: github.actor != 'github-classroom[bot]'
     env:
       DEBIAN_FRONTEND: noninteractive
@@ -35,21 +35,21 @@ jobs:
             2>&1 | tail -5
           echo "C++ tools installed: $(g++ --version | head -1)"
 
-      - name: Setup — Install ROS 2 Humble
+      - name: Setup — Install ROS 2 Jazzy
         run: |
           sudo apt-get install -y -qq curl gnupg
           sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key \
             -o /usr/share/keyrings/ros-archive-keyring.gpg
           echo "deb [arch=$(dpkg --print-architecture) \
             signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] \
-            http://packages.ros.org/ros2/ubuntu jammy main" \
+            http://packages.ros.org/ros2/ubuntu noble main" \
             | sudo tee /etc/apt/sources.list.d/ros2.list > /dev/null
           sudo apt-get update -qq
           sudo apt-get install -y -qq \
-            ros-humble-ros-base \
+            ros-jazzy-ros-base \
             python3-colcon-common-extensions \
             2>&1 | tail -5
-          echo "ROS 2 Humble installed: $(source /opt/ros/humble/setup.bash && ros2 --version)"
+          echo "ROS 2 Jazzy installed: $(source /opt/ros/jazzy/setup.bash && ros2 --version)"
 
       # ════════════════════════════════════════════════════════════
       # PART 1 — C++ OOPs Tests (35 points total)
@@ -169,7 +169,7 @@ jobs:
         with:
           test-name: "P2-3 ROS 2 colcon Build"
           command: >
-            bash -c 'source /opt/ros/humble/setup.bash 2>/dev/null; [ ! -d "fleet_ws" ] && { echo "NO_FLEET_WS_DIR"; exit 0; }; cd fleet_ws; BUILD_OUTPUT=$(colcon build --packages-select drone_fleet 2>&1); STATUS=$?; echo "$BUILD_OUTPUT" | tail -20; if [ $STATUS -eq 0 ]; then echo "ROS2_BUILD_SUCCESS"; else echo "ROS2_BUILD_FAILED"; fi'
+            bash -c 'source /opt/ros/jazzy/setup.bash 2>/dev/null; [ ! -d "fleet_ws" ] && { echo "NO_FLEET_WS_DIR"; exit 0; }; cd fleet_ws; BUILD_OUTPUT=$(colcon build --packages-select drone_fleet 2>&1); STATUS=$?; echo "$BUILD_OUTPUT" | tail -20; if [ $STATUS -eq 0 ]; then echo "ROS2_BUILD_SUCCESS"; else echo "ROS2_BUILD_FAILED"; fi'
           input: ""
           expected-output: "ROS2_BUILD_SUCCESS"
           comparison-method: contains
@@ -238,7 +238,7 @@ jobs:
         with:
           test-name: "P3-1 Dockerfile Multi-Stage"
           command: >
-            bash -c 'DF="fleet_ws/Dockerfile"; [ ! -f "$DF" ] && { echo "MISSING_DOCKERFILE"; exit 0; }; STAGE_COUNT=$(grep -c "^FROM" "$DF" || echo 0); HAS_BUILDER=$(grep -c "AS builder\|as builder" "$DF" || echo 0); HAS_RUNTIME=$(grep -c "AS runtime\|as runtime" "$DF" || echo 0); HAS_COLCON=$(grep -c "colcon build" "$DF" || echo 0); HAS_ENTRYPOINT=$(grep -c "ENTRYPOINT\|entrypoint" "$DF" || echo 0); HAS_COPY_FROM=$(grep -c "COPY --from" "$DF" || echo 0); HAS_ROS_BASE=$(grep -c "ros:humble" "$DF" || echo 0); echo "stages=$STAGE_COUNT builder=$HAS_BUILDER runtime=$HAS_RUNTIME colcon=$HAS_COLCON entrypoint=$HAS_ENTRYPOINT copy_from=$HAS_COPY_FROM ros_humble=$HAS_ROS_BASE"; if [ "$STAGE_COUNT" -ge 2 ] && [ "$HAS_COLCON" -gt 0 ] && [ "$HAS_COPY_FROM" -gt 0 ]; then echo "DOCKERFILE_MULTISTAGE_OK"; fi'
+            bash -c 'DF="fleet_ws/Dockerfile"; [ ! -f "$DF" ] && { echo "MISSING_DOCKERFILE"; exit 0; }; STAGE_COUNT=$(grep -c "^FROM" "$DF" || echo 0); HAS_BUILDER=$(grep -c "AS builder\|as builder" "$DF" || echo 0); HAS_RUNTIME=$(grep -c "AS runtime\|as runtime" "$DF" || echo 0); HAS_COLCON=$(grep -c "colcon build" "$DF" || echo 0); HAS_ENTRYPOINT=$(grep -c "ENTRYPOINT\|entrypoint" "$DF" || echo 0); HAS_COPY_FROM=$(grep -c "COPY --from" "$DF" || echo 0); HAS_ROS_BASE=$(grep -c "ros:jazzy" "$DF" || echo 0); echo "stages=$STAGE_COUNT builder=$HAS_BUILDER runtime=$HAS_RUNTIME colcon=$HAS_COLCON entrypoint=$HAS_ENTRYPOINT copy_from=$HAS_COPY_FROM ros_jazzy=$HAS_ROS_BASE"; if [ "$STAGE_COUNT" -ge 2 ] && [ "$HAS_COLCON" -gt 0 ] && [ "$HAS_COPY_FROM" -gt 0 ]; then echo "DOCKERFILE_MULTISTAGE_OK"; fi'
           input: ""
           expected-output: "DOCKERFILE_MULTISTAGE_OK"
           comparison-method: contains
@@ -312,8 +312,6 @@ jobs:
           if [ -f "$LAUNCH" ]; then
             echo "Gamma config in launch file:"
             grep -A 5 -i "gamma" "$LAUNCH" || echo "Gamma config not clearly visible"
-            # Gamma starts at 35%, critical threshold is ~20%, so 15% needs to drain
-            # At 0.5/sec drain = 30 seconds. This is the expected math.
             echo "Expected: Gamma(35% start) -> critical(20%) in ~30 sec at 0.5%/sec drain"
           fi
 
