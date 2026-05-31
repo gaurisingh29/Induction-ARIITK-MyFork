@@ -19,20 +19,19 @@ public:
         declare_parameter("mission_name",    std::string("Default Mission"));
 
         std::string name    = get_parameter("drone_name").as_string();
-        double      battery = get_parameter("initial_battery").as_double();
+        double battery = get_parameter("initial_battery").as_double();
         std::string mission = get_parameter("mission_name").as_string();
 
         std::vector<std::tuple<float,float,float>> waypoints = {
-            {10.f,  0.f, 15.f},
+            {10.f,  0.f, 15.f},initia
             {20.f, 10.f, 20.f},
             {30.f,  5.f, 25.f},
             {25.f, -5.f, 18.f},
             {10.f,-10.f, 10.f}
         };
-
         drone_ = std::make_unique<MissionDrone>(
             name, static_cast<float>(battery), mission, waypoints, 120.0f
-        );
+        );                                      //made the object and assigned its pointer to drone_
         drone_->take_off(15.0f);
 
         // create_publisher<MsgType>(topic, queue_size)
@@ -66,7 +65,7 @@ private:
         ++publish_count_;
 
         try {
-            drone_->drain_battery(0.1f);
+            drone_->drain_battery(0.5f);
         } catch (const BatteryDepletedError& e) {
             RCLCPP_WARN(get_logger(), "Battery depleted: %s", e.what());
         }
@@ -147,8 +146,8 @@ private:
 };
 
 int main(int argc, char* argv[]) {
-    // rclcpp::init sets up ROS 2 internals and parses ROS-specific command line args
-    rclcpp::init(argc, argv);
+    rclcpp::init(argc, argv);     // sets up ROS 2 internals and parses ROS-specific command line args
+
     // rclcpp::spin blocks here, dispatching timer and subscription callbacks until Ctrl+C
     rclcpp::spin(std::make_shared<DroneNode>());
     rclcpp::shutdown();
