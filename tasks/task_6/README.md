@@ -95,6 +95,6 @@ To integrate with our autograding CI/CD pipeline, you **must** submit your work 
 
 Once your PR is opened, our **GitHub Actions** bot (running Ubuntu 24.04 and ROS 2 Jazzy) will automatically verify that your package compiles successfully.We will review your code and video demo directly in the PR!
 
-
+**Deadline: Jun 25th,2026 EOD**
 ---
 Good luck!
