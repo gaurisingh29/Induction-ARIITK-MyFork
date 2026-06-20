@@ -24,6 +24,15 @@ task_6/
 
 ---
 
+## Performance Metrics
+
+Your solution will be graded based on your completion of all the subtasks, focusing on:
+- Robustness of the PID controller in following the leader.
+- Accuracy of the pose estimation in GPS-denied environments.
+- Precision of the landing maneuver during cooperative delivery.
+
+---
+
 ## Subtasks
 
 You must complete all three of the following subtasks in order to successfully finish the assignment. These subtasks build upon each other.
