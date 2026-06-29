@@ -1,0 +1,36 @@
+
+<?xml version="1.0"?>
+
+<!-- This file is a package.xml file, which acts as the manifest for a ROS 2 (Robot Operating System) package. -->
+<!-- It tells the ROS 2 build system (Colcon) what the package is named, who made it, and exactly what software dependencies it needs to compile and run` -->
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>swarm_tracker</name>
+  <version>0.1.0</version>
+  <description>Leader-follower drone swarm with ArUco-based visual servoing and gimbal tracking</description>
+  <maintainer email="gaurisingh1729@gmail.com">Gauri Singh</maintainer>
+  <license>MIT</license>
+
+  <buildtool_depend>ament_python</buildtool_depend>
+
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>geometry_msgs</exec_depend>
+  <exec_depend>sensor_msgs</exec_depend>
+  <exec_depend>mavros_msgs</exec_depend>
+  <exec_depend>cv_bridge</exec_depend>
+  <exec_depend>python3-opencv</exec_depend>
+  <exec_depend>python3-numpy</exec_depend>
+  <exec_depend>mavros</exec_depend>
+  <exec_depend>ros_gz_bridge</exec_depend>
+  <exec_depend>ros_gz_sim</exec_depend>
+
+  <test_depend>ament_copyright</test_depend>
+  <!-- Confirms this is a pure Python ROS 2 package (using setup.py and standard Python entry points rather than C++ CMake). -->
+  <test_depend>ament_flake8</test_depend>
+  <test_depend>ament_pep257</test_depend>
+  <test_depend>python3-pytest</test_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>

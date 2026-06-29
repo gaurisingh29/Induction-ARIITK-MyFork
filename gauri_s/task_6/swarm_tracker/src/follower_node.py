@@ -441,7 +441,6 @@ class FollowerNode(Node):
         distance_error = z_distance - self.target_distance   # metres
  
         # Lateral error: how far the marker is off-centre horizontally
-        # (in metres, from tvec. Alternative: use pixel offset directly.)
         lateral_error  = x_offset                            # metres
  
         # Vertical error: how far the marker is off-centre vertically
@@ -480,7 +479,7 @@ class FollowerNode(Node):
         Strategy:
           1. Use PIDs to null x and y offsets → hover directly above pad.
           2. Descend at a slow constant rate while offsets are small.
-          3. Below 0.3 m, trigger LAND mode via MAVROS (or keep descending until touchdown).
+          3. Below 0.3 m, trigger LAND mode via MAVROS.
         """
         DESCENT_RATE      = 0.3    # m/s descend speed
         ALIGNMENT_THRESH  = 0.05   # metres — alignment tolerance before descending
