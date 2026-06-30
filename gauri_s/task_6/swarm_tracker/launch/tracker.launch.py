@@ -8,7 +8,7 @@ from ament_index_python.packages import get_package_share_directory
 
 def generate_launch_description():
     pkg_share = get_package_share_directory('swarm_tracker')
-    bridge_config = os.path.join(pkg_share, 'config', 'gz_bridge.yaml')
+    #bridge_config = os.path.join(pkg_share, 'config', 'gz_bridge.yaml')
     #This looks inside the compiled workspace installation directory for your package (swarm_tracker) and finds the gz_bridge.yaml file. 
     #This YAML file contains the exact mapping rules for translating data between Gazebo and ROS 2.
 
